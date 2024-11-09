@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.ksp.annotation.processor) apply false
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.google.services) apply false
 }
