@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.fundox.fundbox.presentation.features.home.components.ProfileBanner
+import com.fundox.fundbox.presentation.features.home.components.SearchBarSection
 import com.fundox.fundbox.presentation.features.home.components.TotalDonationBanner
 import com.fundox.fundbox.presentation.features.home.viewmodels.HomeViewModel
 import com.fundox.fundbox.presentation.navGraph.BottomNavigationBar
@@ -67,21 +68,9 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(paddingValues),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraLarge))
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = MaterialTheme.spacing.mediumLarge),
-                onClick = { navController.navigate(Routes.AuthScreen.route) }
-            ) {
-                Text(text = "Log Out")
-            }
+            SearchBarSection(){}
         }
     }
 }

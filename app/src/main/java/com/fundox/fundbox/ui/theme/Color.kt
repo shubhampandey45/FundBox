@@ -15,7 +15,7 @@ internal val secondaryContainerLight = Color(0xFF212529)
 internal val onSecondaryContainerLight = Color(0xFFf8f9fa)
 internal val tertiaryContainerLight = Color(0xFF3d5a80)
 internal val onTertiaryContainerLight = Color(0xFFe0fbfc)
-internal val backgroundLight = Color(0xFFDCF6FF)
+internal val backgroundLight = Color(0xFFFFFFFF)
 
 
 //Dark theme colors
@@ -27,7 +27,7 @@ internal val tertiaryDark = Color(0xFFa1cca5)
 internal val onTertiaryDark = Color(0xFF415d43)
 
 internal val primaryContainerDark = Color(0xFF415d43)
-internal val onPrimaryContainerDark = Color(0xFFa1cca5)
+internal val onPrimaryContainerDark = Color(0xFFFFFFFF)
 internal val secondaryContainerDark = Color(0xFFf8f9fa)
 internal val onSecondaryContainerDark = Color(0xFF212529)
 internal val tertiaryContainerDark = Color(0xFFe0fbfc)
