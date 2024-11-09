@@ -2,11 +2,13 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp.annotation.processor)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
     namespace = "com.fundox.fundbox"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.fundox.fundbox"
@@ -40,6 +42,26 @@ android {
 }
 
 dependencies {
+    //navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)   //KSP Annotation Processor
+    implementation(libs.androidx.hilt.navigation.compose) //hilt for navigation
+
+    //Coil
+    implementation(libs.coil.compose)
+
+    //Material extended icon
+    implementation(libs.androidx.material.icons.extended.android)
+
+    //Accompanist
+    implementation(libs.accompanist)
+
+    //Arrow core lib
+    api(libs.arrow.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
