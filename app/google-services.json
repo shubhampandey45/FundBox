@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "378472712939",
+    "project_id": "fundbox-79379",
+    "storage_bucket": "fundbox-79379.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378472712939:android:cc22d80e2bf38800378cae",
+        "android_client_info": {
+          "package_name": "com.fundox.fundbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdlFkcD8cRK-lR438e2XApCFvKFbZMkfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
