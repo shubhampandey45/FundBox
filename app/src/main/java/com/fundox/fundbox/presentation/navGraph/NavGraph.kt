@@ -1,53 +1,88 @@
 package com.fundox.fundbox.presentation.navGraph
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import android.app.Activity.RESULT_OK
+import android.content.Context
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.fundox.fundbox.presentation.features.auth.AuthScreen
+import com.fundox.fundbox.presentation.features.auth.GoogleAuthUiClient
+import com.fundox.fundbox.presentation.features.auth.viewmodels.AuthViewModel
 import com.fundox.fundbox.presentation.features.home.HomeScreen
+import kotlinx.coroutines.launch
 
 @Composable
 fun FundBoxNavGraph(
-    navController: NavHostController = rememberNavController()
+    googleAuthUiClient: GoogleAuthUiClient,
+    navController: NavHostController = rememberNavController(),
+    context : Context= LocalContext.current,
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.HomeScreen.route
+        startDestination = Routes.AuthScreen.route
     ) {
         composable(route = Routes.AuthScreen.route) {
+            val authViewModel: AuthViewModel = hiltViewModel()
+            val state by authViewModel.state.collectAsStateWithLifecycle()
+            val scope = rememberCoroutineScope()
+
+            LaunchedEffect(key1 = Unit) {
+                if (googleAuthUiClient.getSignedInUser() != null) {
+                    navController.navigate(Routes.HomeScreen.route)
+                }
+            }
+
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartIntentSenderForResult(),
+                onResult = { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        scope.launch {
+                            val signInResult = googleAuthUiClient.signInWithIntent(
+                                intent = result.data ?: return@launch
+                            )
+                            authViewModel.onSignInResult(signInResult)
+                        }
+                    }
+                }
+            )
+
+            LaunchedEffect(key1 = state.isSignInSuccessful) {
+                if (state.isSignInSuccessful) {
+                    Toast.makeText(
+                        context,
+                        "Sign in successful",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    navController.navigate("home")
+                    authViewModel.resetState()
+                }
+            }
             AuthScreen(
-                navController = navController
+                state = state,
+                onSignInClick = {
+                    scope.launch {
+                        val signInIntentSender = googleAuthUiClient.signIn()
+                        launcher.launch(
+                            IntentSenderRequest.Builder(
+                                signInIntentSender ?: return@launch
+                            ).build()
+                        )
+                    }
+                }
             )
         }
         navigation(

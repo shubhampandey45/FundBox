@@ -12,7 +12,20 @@
           "package_name": "com.fundox.fundbox"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "378472712939-ul2uqp0t935co6ktl2k01ve0pfsrd2vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fundox.fundbox",
+            "certificate_hash": "77c932ebbf853b90cfe3395df232556d79d7f09c"
+          }
+        },
+        {
+          "client_id": "378472712939-gbtff5sef8clkr9d7iahk2c5ql926a80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAdlFkcD8cRK-lR438e2XApCFvKFbZMkfk"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378472712939-gbtff5sef8clkr9d7iahk2c5ql926a80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
