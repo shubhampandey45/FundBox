@@ -28,6 +28,7 @@ arrowKt = "1.2.4"
 dataStore = "1.1.1"
 
 googleServices = "4.4.2"
+playServicesAuth = "21.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -65,6 +66,7 @@ androidx-material-icons-extended-android = { module = "androidx.compose.material
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrowKt" }
 
 dataStore = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

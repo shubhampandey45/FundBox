@@ -2,4 +2,10 @@
     <string name="app_name">FundBox</string>
     <string name="home_screen_title">Home</string>
     <string name="auth_screen_title">Log In</string>
+    /IDs
+    <string name="web_client_id">378472712939-gbtff5sef8clkr9d7iahk2c5ql926a80.apps.googleusercontent.com</string>
+
+    //Menu Items
+    <string name="revoke_access_item">Revoke Access</string>
+    <string name="sign_out_item">Sign-out</string>
 </resources>
