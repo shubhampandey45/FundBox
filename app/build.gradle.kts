@@ -49,6 +49,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.play.services.auth)
     ksp(libs.hilt.compiler)   //KSP Annotation Processor
     implementation(libs.androidx.hilt.navigation.compose) //hilt for navigation
 

@@ -3,39 +3,31 @@ package com.fundox.fundbox
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import com.fundox.fundbox.presentation.navGraph.FundBoxNavGraph
+import androidx.activity.viewModels
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.fundox.fundbox.navigation.NavGraph
+import com.fundox.fundbox.presentation.feature.auth.AuthViewModel
+import com.fundox.fundbox.presentation.feature.auth.components.checkAuthState
 import com.fundox.fundbox.ui.theme.FundBoxTheme
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+    private lateinit var navController: NavHostController
+    private val viewModel by viewModels<AuthViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             FundBoxTheme {
-                val isSystemInDarkMode = isSystemInDarkTheme()
-                val systemController = rememberSystemUiController()
-
-                SideEffect {
-                    systemController.setSystemBarsColor(
-                        color = Color.Transparent,
-                        darkIcons = !isSystemInDarkMode
-                    )
-                }
-                FundBoxNavGraph()
+                navController = rememberNavController()
+                NavGraph(
+                    navController = navController
+                )
+                checkAuthState(viewModel, navController = navController)
             }
         }
     }
